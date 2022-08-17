@@ -1,0 +1,25 @@
+{
+	"name": "@opi-pib/ngx-utility",
+	"version": "14.0.0",
+	"description": "Angular utility",
+	"keywords": [
+		"angular utility"
+	],
+	"author": "Dawid Lubowiecki",
+	"license": "MIT",
+	"peerDependencies": {
+		"@angular/cdk": "^14.1.0",
+		"@angular/common": "^14.1.0",
+		"@angular/core": "^14.1.0",
+		"@angular/forms": "^14.1.0",
+		"@angular/platform-browser": "^14.1.0",
+		"@angular/platform-browser-dynamic": "^14.1.0",
+		"@opi-pib/ts-utility": "^1.0.0",
+		"ramda": "^0.28.0",
+		"rxjs": "~7.5.0",
+		"zone.js": "~0.11.4"
+	},
+	"dependencies": {
+		"tslib": "^2.4.0"
+	}
+}

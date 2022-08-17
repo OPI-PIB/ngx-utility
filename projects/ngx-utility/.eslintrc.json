@@ -1,0 +1,26 @@
+{
+  "extends": [
+    "../../.eslintrc.json"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "projects/ngx-utility/tsconfig.*?.json",
+          "projects/ngx-utility/tsconfig.lib.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "rules": {}
+    },
+    {
+      "files": [
+        "*.component.html"
+      ],
+      "rules": {}
+    }
+  ]
+}
