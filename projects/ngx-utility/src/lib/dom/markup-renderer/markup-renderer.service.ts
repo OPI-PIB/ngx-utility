@@ -36,17 +36,17 @@ export class MarkupRenderer {
 			...props,
 		};
 
-		const markupElement = this.buildMarkupElement(props.markup);
+		const markupElement = this.#buildMarkupElement(props.markup);
 
 		if (markupElement != null) {
-			const normalizedNodes: HTMLElement[] = this.getNormalizeNodes(this.getNodes(markupElement), propsWithInitials.maxChunkLength);
-			this.appendNormalizedNodes(propsWithInitials.parent, normalizedNodes);
+			const normalizedNodes: HTMLElement[] = this.#getNormalizeNodes(this.#getNodes(markupElement), propsWithInitials.maxChunkLength);
+			this.#appendNormalizedNodes(propsWithInitials.parent, normalizedNodes);
 		}
 
 		callback();
 	}
 
-	private buildMarkupElement(markup: string): Maybe<HTMLElement> {
+	#buildMarkupElement(markup: string): Maybe<HTMLElement> {
 		const safeMarkup = this.domSanitizer.sanitize(SecurityContext.HTML, markup);
 		let element: Maybe<HTMLElement> = null;
 
@@ -61,7 +61,7 @@ export class MarkupRenderer {
 		return element;
 	}
 
-	private getNormalizeNodes(nodes: HTMLElement[], maxChunkLength: number): HTMLElement[] {
+	#getNormalizeNodes(nodes: HTMLElement[], maxChunkLength: number): HTMLElement[] {
 		const normalizedNodes: HTMLElement[] = [];
 
 		nodes.forEach((node) => {
@@ -83,7 +83,7 @@ export class MarkupRenderer {
 					normalizedNodes.push(node);
 				}
 			} else {
-				const normalizedNode = this.setNormalizedNodes(node, this.getNormalizeNodes(this.getNodes(node), maxChunkLength));
+				const normalizedNode = this.#setNormalizedNodes(node, this.#getNormalizeNodes(this.#getNodes(node), maxChunkLength));
 				normalizedNodes.push(normalizedNode);
 			}
 		});
@@ -91,7 +91,7 @@ export class MarkupRenderer {
 		return normalizedNodes;
 	}
 
-	private appendNormalizedNodes(parent: HTMLElement, nodes: HTMLElement[]): HTMLElement {
+	#appendNormalizedNodes(parent: HTMLElement, nodes: HTMLElement[]): HTMLElement {
 		nodes.forEach((node) => {
 			this.renderer.appendChild(parent, node);
 		});
@@ -99,13 +99,13 @@ export class MarkupRenderer {
 		return parent;
 	}
 
-	private setNormalizedNodes(parent: HTMLElement, nodes: HTMLElement[]): HTMLElement {
+	#setNormalizedNodes(parent: HTMLElement, nodes: HTMLElement[]): HTMLElement {
 		parent.innerHTML = '';
 
-		return this.appendNormalizedNodes(parent, nodes);
+		return this.#appendNormalizedNodes(parent, nodes);
 	}
 
-	private getNodes(element: HTMLElement): HTMLElement[] {
+	#getNodes(element: HTMLElement): HTMLElement[] {
 		return [].slice.call(element.childNodes);
 	}
 }

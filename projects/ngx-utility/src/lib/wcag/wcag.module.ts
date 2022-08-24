@@ -4,15 +4,11 @@ import {
 
 import { Wcag } from './wcag.service';
 
-// https://github.com/ng-packagr/ng-packagr/issues/696
-// tslint:disable:prefer-immediate-return
 export function getFactory(injector: Injector): () => void {
-	const result = () => {
+	return () => {
 		const wcag = injector.get(Wcag);
 		wcag.init();
 	};
-
-	return result;
 }
 
 @NgModule()

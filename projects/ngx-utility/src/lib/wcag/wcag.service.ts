@@ -1,70 +1,68 @@
-import {
-	FocusMonitor, HighContrastMode, HighContrastModeDetector, LiveAnnouncer,
-} from '@angular/cdk/a11y';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
-import { isDefined } from '@opi-pib/ts-utility';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
-export const HC_ACTIVE_CSS_CLASS = 'hc-active';
+import { WINDOW } from '../dom/window/window';
+import { WcagColorScheme } from './wcag-color-scheme.enum';
 
 @Injectable({
 	providedIn: 'root',
 })
-export class Wcag {
-	private initialized: boolean;
+export class Wcag implements OnDestroy {
+	#initialized: boolean = false;
 
-	private documentRef: Document;
+	#subscriptions = new Subscription();
 
 	constructor(
-		@Inject(DOCUMENT) private document: any,
-		private highContrastModeDetector: HighContrastModeDetector,
-		private liveAnnouncer: LiveAnnouncer,
+		@Inject(DOCUMENT) private document: Document,
+		@Inject(WINDOW) private window: Window,
 		private focusMonitor: FocusMonitor,
-	) {
-		this.initialized = false;
-		this.documentRef = this.document; // https://github.com/angular/angular/issues/20351
+	) { }
+
+	/**
+	 * Initialize module
+	 */
+	init(): void {
+		if (this.#initialized === false) {
+			this.#initialized = true;
+			this.#trackFocus();
+		}
+	}
+
+	ngOnDestroy(): void {
+		this.#subscriptions.unsubscribe();
 	}
 
 	/**
-	 * Add message in aria live region
+	 * Returns prefered color scheme
+	 *
+	 * @Firefox
+	 * In order to force Firefox to take into account the operating system settings,
+	 * you should set `ui.systemUsesDarkTheme` with value `2` in `about:config`
 	 */
-	async announce(message: string): Promise<void> {
-		await this.liveAnnouncer.announce(message);
-	}
+	getPreferedColorScheme(): WcagColorScheme | null {
+		const forcedColors = this.window.matchMedia('(forced-colors: active)');
+		const isDark = this.window.matchMedia('(prefers-color-scheme: dark)');
 
-	init(): void {
-		if (this.initialized === false) {
-			this.initialized = true;
-			this.trackLastFocus();
-			this.detectHighContrastMode();
-		}
-	}
-
-	private trackLastFocus(): void {
-		this.focusMonitor.monitor(this.documentRef.body, true).subscribe();
-	}
-
-	private detectHighContrastMode(): void {
-		this.documentRef.body.classList.remove(HC_ACTIVE_CSS_CLASS);
-
-		if (!this.detectHighContrastModeInChrome()) {
-			const highContrastMode: HighContrastMode = this.highContrastModeDetector.getHighContrastMode();
-
-			if (highContrastMode === HighContrastMode.BLACK_ON_WHITE || highContrastMode === HighContrastMode.WHITE_ON_BLACK) {
-				this.documentRef.body.classList.add(HC_ACTIVE_CSS_CLASS);
+		if (forcedColors.matches) {
+			if (isDark.matches) {
+				return WcagColorScheme.Dark;
 			}
+
+			return WcagColorScheme.Light;
 		}
+
+		return null;
 	}
 
-	private detectHighContrastModeInChrome(): boolean {
-		// chrome with high-contrast extension only
-		const htmlTag: HTMLElement = this.documentRef.getElementsByTagName('html')[0];
-		const isChromeExtensionHighContrastMode: boolean = isDefined(htmlTag.getAttribute('hc'));
-
-		if (isChromeExtensionHighContrastMode === true) {
-			this.documentRef.body.classList.add(HC_ACTIVE_CSS_CLASS);
-		}
-
-		return isChromeExtensionHighContrastMode;
+	/**
+	 * It will add .cdk-focused and .cdk-${origin}-focused (with ${origin} being mouse, keyboard, touch, or program) to the body element
+	 * if any element is focused.
+	 */
+	#trackFocus(): void {
+		this.#subscriptions.add(
+			this.focusMonitor.monitor(this.document.body, true).subscribe(),
+		);
 	}
 }
