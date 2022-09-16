@@ -30,7 +30,7 @@
 				"project": ["tsconfig.*?.json", "e2e/tsconfig.json"],
 				"createDefaultProgram": true
 			},
-			"extends": ["@opi-pib/base", "plugin:@angular-eslint/recommended"],
+			"extends": ["@opi_pib/base", "plugin:@angular-eslint/recommended"],
 			"rules": {
 				/**
 				 * Any TypeScript related rules you wish to use/reconfigure over and above the
