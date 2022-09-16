@@ -2,7 +2,7 @@ import {
 	Injectable, Renderer2, RendererFactory2, SecurityContext,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { isDefined, Maybe } from '@opi-pib/ts-utility';
+import { isDefined, Maybe } from '@opi_pib/ts-utility';
 import { splitEvery } from 'ramda';
 
 export interface RenderMarkupProps {

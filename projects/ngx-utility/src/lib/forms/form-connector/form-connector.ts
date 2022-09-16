@@ -1,5 +1,5 @@
 import { AbstractControl, ControlContainer, FormGroup } from '@angular/forms';
-import { always } from '@opi-pib/ts-utility';
+import { always } from '@opi_pib/ts-utility';
 
 export class FormConnector {
 	private constructor() { }
