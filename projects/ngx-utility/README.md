@@ -1,18 +1,17 @@
 # ngx-utility
 
-- [ngx-utility](#ngx-utility)
-	- [DOM](#dom)
-		- [renderMarkup](#rendermarkup)
-	- [Forms](#forms)
-		- [FormConnector](#formconnector)
-		- [connectControlWithParent](#connectcontrolwithparent)
-		- [Form types](#form-types)
-	- [Schedulers](#schedulers)
-		- [Enter NgZone](#enter-ngzone)
-		- [Leave NgZone](#leave-ngzone)
-	- [Wcag](#wcag)
-		- [forRoot](#forroot)
-		- [Announce](#announce)
+-   [ngx-utility](#ngx-utility)
+    -   [DOM](#dom)
+        -   [renderMarkup](#rendermarkup)
+        -   [window](#window)
+    -   [Forms](#forms)
+        -   [FormConnector](#formconnector)
+    -   [Schedulers](#schedulers)
+        -   [Enter NgZone](#enter-ngzone)
+        -   [Leave NgZone](#leave-ngzone)
+    -   [Wcag](#wcag)
+        -   [forRoot](#forroot)
+        -   [Announce](#announce)
 
 ## DOM
 
@@ -32,11 +31,22 @@ const callback = () => {
 renderMarkup({ markup, parent, maxChunkLength }, callback); // will render <span>12</span><span>34</span><span>56</span><span>7</span>
 ```
 
+### window
+
+InjectionToken which is an abstraction over global window object
+
+```typescript
+@Injectable({
+	providedIn: "root",
+})
+export class MyService {
+	constructor(@Inject(WINDOW) private window: Window) {}
+}
+```
+
 ## Forms
 
 ### FormConnector
-
-### connectControlWithParent
 
 Set control as child of other form group
 
@@ -57,21 +67,59 @@ export class ChildFormComponent {
 }
 ```
 
-### Form types
+## Http
+
+### RestQuery
 
 ```typescript
-interface CustomValue {
-	name: string;
+@Injectable({
+	providedIn: "root",
+})
+export class RestUserGetService extends RestQuery {
+	constructor(private httpClient: HttpClient) {
+		super();
+	}
+
+	getUser$(userId: UserId): Observable<User> {
+		return this.query$(
+			this.httpClient.get<UserDto>(
+				`${environment.restUri}/user/${userId.id}`
+			)
+		).pipe(map((userDto) => User.fromDto(userDto)));
+	}
 }
 
-const typedFormControl: TypedFormControl<CustomValue> =
-	this.formBuilder.control({ name: "test" });
-const typedFormGroup: TypedFormGroup<CustomValue> = this.formBuilder.group({
-	name: "test",
-});
-const typedFormArray: TypedFormArray<CustomValue> = this.formBuilder.array([
-	typedFormGroup,
-]);
+@Component({
+	selector: "app-user-page",
+	template: `
+		<ng-container *ngIf="user$ | async as user">
+			{{ user.name }}
+		</ng-container>
+
+		<mat-progress-spinner
+			*ngIf="isProcessing$ | async"
+			mode="indeterminate"
+			color="primary"
+		></mat-progress-spinner>
+	`,
+	styleUrls: ["./user-page.component.scss"],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class UserPageComponent {
+	user$: Observable<User>;
+
+	isProcessing$: Observable<boolean> = RestQuery.isProcessingAny$([
+		this.restUserGetService.isProcessing$(),
+	]);
+
+	constructor(private restUserGetService: RestUserGetService) {
+		this.user$ = this.restUserGetService.getUser$(
+			UserId.create({
+				id: "00000000-aaaa-dddd-ffff-000000000000",
+			})
+		);
+	}
+}
 ```
 
 ## Schedulers
