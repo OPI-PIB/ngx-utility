@@ -14,7 +14,7 @@
 		"@angular/forms": "^15.0.0",
 		"@angular/platform-browser": "^15.0.0",
 		"@angular/platform-browser-dynamic": "^15.0.0",
-		"@opi_pib/ts-utility": "^1.0.3",
+		"@opi_pib/ts-utility": "^1.0.4",
 		"ramda": "^0.28.0",
 		"rxjs": "~7.5.0",
 		"zone.js": "~0.12.0"
