@@ -8,6 +8,7 @@ export * from './lib/dom/window/window';
 
 // forms
 export * from './lib/forms/form-connector/form-connector';
+export * from './lib/forms/form-controls-of';
 
 // http
 export * from './lib/http/rest-query/rest-query';

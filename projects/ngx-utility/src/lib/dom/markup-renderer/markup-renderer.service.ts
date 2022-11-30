@@ -2,7 +2,7 @@ import {
 	Injectable, Renderer2, RendererFactory2, SecurityContext,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { isDefined, Maybe } from '@opi_pib/ts-utility';
+import { Is, Maybe } from '@opi_pib/ts-utility';
 import { splitEvery } from 'ramda';
 
 export interface RenderMarkupProps {
@@ -53,7 +53,7 @@ export class MarkupRenderer {
 		if (typeof safeMarkup === 'string' && safeMarkup.length > 0) {
 			element = this.renderer.createElement('div');
 
-			if (isDefined(element)) {
+			if (Is.defined(element)) {
 				element.innerHTML = safeMarkup;
 			}
 		}
