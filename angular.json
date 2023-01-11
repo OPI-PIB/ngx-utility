@@ -43,5 +43,8 @@
 			}
 		}
 	},
-	"defaultProject": "ngx-utility"
+  "defaultProject": "ngx-utility",
+  "cli": {
+    "analytics": false
+  }
 }
