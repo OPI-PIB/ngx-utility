@@ -6,6 +6,9 @@
         -   [window](#window)
     -   [Forms](#forms)
         -   [FormConnector](#formconnector)
+        -   [FormControlsOf](#formcontrolsof)
+    -   [Http](#http)
+        -   [RestQuery](#restquery)
     -   [Schedulers](#schedulers)
         -   [Enter NgZone](#enter-ngzone)
         -   [Leave NgZone](#leave-ngzone)
@@ -65,6 +68,18 @@ export class ChildFormComponent {
 		);
 	}
 }
+```
+
+### FormControlsOf
+
+Transform type into FormControls
+
+```typescript
+type User = {
+	name: string;
+};
+
+type UserFormControls = FormControlsOf<User>;
 ```
 
 ## Http
@@ -161,16 +176,4 @@ Detectects high contrast mode and add 'hc-active' to body
 	],
 })
 export class AppModule {}
-```
-
-### Announce
-
-Add message in aria live region
-
-```typescript
-constructor(private wcag: Wcag){}
-
-async showMessage(message: string): Promise<void> {
-  await this.wcag.announce(message)
-}
 ```
