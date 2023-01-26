@@ -7,8 +7,12 @@ export class FormConnector {
 	/**
 	 * Set control as child of other form group
 	 */
-	static connectControlWithParent(parent: ControlContainer, controlName: string, control: AbstractControl): void {
-		always(parent.control instanceof FormGroup, 'parent.control needs to be instance of FormGroup');
+	static connectControlWithParent<T>(
+		parent: ControlContainer,
+		controlName: Extract<keyof T, string>,
+		control: AbstractControl,
+	): void {
+		always(parent.control instanceof FormGroup, 'tdnqbykf');
 
 		parent.control.setControl(controlName, control);
 	}
