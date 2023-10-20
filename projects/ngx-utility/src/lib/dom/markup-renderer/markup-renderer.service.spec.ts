@@ -53,9 +53,7 @@ describe('MarkupRenderer', () => {
 
 		service.renderMarkup({ markup, parent, maxChunkLength });
 
-		expect(parent.innerHTML).toBe(
-			`<span>1234567</span>1234567<span>1234567</span>1234567`
-		);
+		expect(parent.innerHTML).toBe(`<span>1234567</span>1234567<span>1234567</span>1234567`);
 	});
 
 	it('should split text nodes every 5 chars', () => {
@@ -65,8 +63,6 @@ describe('MarkupRenderer', () => {
 
 		service.renderMarkup({ markup, parent, maxChunkLength });
 
-		expect(parent.innerHTML).toBe(
-			`12<u>12</u><span>12345</span><span>67</span><u><span>12345</span><span>67</span></u><span>12345</span><span>67</span>`
-		);
+		expect(parent.innerHTML).toBe(`12<u>12</u><span>12345</span><span>67</span><u><span>12345</span><span>67</span></u><span>12345</span><span>67</span>`);
 	});
 });

@@ -1,6 +1,4 @@
-import {
-	APP_INITIALIZER, Injector, ModuleWithProviders, NgModule,
-} from '@angular/core';
+import { APP_INITIALIZER, Injector, ModuleWithProviders, NgModule } from '@angular/core';
 
 import { Wcag } from './wcag.service';
 

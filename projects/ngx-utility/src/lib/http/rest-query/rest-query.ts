@@ -1,7 +1,5 @@
 import { any } from 'ramda';
-import {
-	BehaviorSubject, combineLatest, finalize, map, Observable,
-} from 'rxjs';
+import { BehaviorSubject, combineLatest, finalize, map, Observable } from 'rxjs';
 
 export abstract class RestQuery {
 	#isProcessing$ = new BehaviorSubject(false);
@@ -10,7 +8,7 @@ export abstract class RestQuery {
 		return combineLatest(sources$).pipe(map((states) => any((state) => state === true, states)));
 	}
 
-	constructor() { }
+	constructor() {}
 
 	isProcessing$(): Observable<boolean> {
 		return this.#isProcessing$.asObservable();
@@ -19,8 +17,6 @@ export abstract class RestQuery {
 	protected query$<Response>(request$: Observable<Response>): Observable<Response> {
 		this.#isProcessing$.next(true);
 
-		return request$.pipe(
-			finalize(() => this.#isProcessing$.next(false)),
-		);
+		return request$.pipe(finalize(() => this.#isProcessing$.next(false)));
 	}
 }

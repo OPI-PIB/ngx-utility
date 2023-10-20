@@ -1,7 +1,5 @@
 import { fakeAsync, tick } from '@angular/core/testing';
-import {
-	catchError, map, Observable, of, timer,
-} from 'rxjs';
+import { catchError, map, Observable, of, timer } from 'rxjs';
 
 import { RestQuery } from './rest-query';
 
@@ -10,12 +8,18 @@ class TestQuery extends RestQuery {
 		super();
 	}
 
-	get$<T>(options: {due: number, data: T}): Observable<T> {
+	get$<T>(options: { due: number; data: T }): Observable<T> {
 		return this.query$(timer(options.due).pipe(map(() => options.data)));
 	}
 
 	getWithError$(options: { due: number }): Observable<unknown> {
-		return this.query$(timer(options.due).pipe(map(() => { throw new Error(); })));
+		return this.query$(
+			timer(options.due).pipe(
+				map(() => {
+					throw new Error();
+				})
+			)
+		);
 	}
 }
 
@@ -84,14 +88,17 @@ describe('RestQuery', () => {
 		expect(isProcessingValue).toBe(false);
 		expect(getValue1).toBe(null);
 
-		const queryGetSubscription1 = query.getWithError$({ due: 2 }).pipe(
-			catchError((error) => {
-				getError1 = error;
-				return of('Error');
-			}),
-		).subscribe((value) => {
-			getValue1 = value;
-		});
+		const queryGetSubscription1 = query
+			.getWithError$({ due: 2 })
+			.pipe(
+				catchError((error) => {
+					getError1 = error;
+					return of('Error');
+				})
+			)
+			.subscribe((value) => {
+				getValue1 = value;
+			});
 
 		tick(1);
 
