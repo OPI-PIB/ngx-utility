@@ -34,17 +34,14 @@
 				"eslint": {
 					"builder": "@angular-eslint/builder:lint",
 					"options": {
-						"lintFilePatterns": [
-							"projects/ngx-utility/**/*.ts",
-							"projects/ngx-utility/**/*.component.html"
-						]
+						"lintFilePatterns": ["projects/ngx-utility/**/*.ts", "projects/ngx-utility/**/*.component.html"]
 					}
 				}
 			}
 		}
 	},
-  "defaultProject": "ngx-utility",
-  "cli": {
-    "analytics": false
-  }
+	"defaultProject": "ngx-utility",
+	"cli": {
+		"analytics": false
+	}
 }

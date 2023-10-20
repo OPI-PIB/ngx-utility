@@ -1,6 +1,4 @@
-import {
-	Injectable, Renderer2, RendererFactory2, SecurityContext,
-} from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Is, Maybe } from '@opi_pib/ts-utility';
 import { splitEvery } from 'ramda';
@@ -30,7 +28,7 @@ export class MarkupRenderer {
 	/**
 	 * Render html markup, if html contains large text nodes they will be splitted to separate spans based on maxChunkLength value
 	 */
-	renderMarkup(props: RenderMarkupProps, callback: () => any = () => { }): void {
+	renderMarkup(props: RenderMarkupProps, callback: () => any = () => {}): void {
 		const propsWithInitials: Required<RenderMarkupProps> = {
 			...initialProps,
 			...props,
@@ -65,11 +63,7 @@ export class MarkupRenderer {
 		const normalizedNodes: HTMLElement[] = [];
 
 		nodes.forEach((node) => {
-			if (
-				node.nodeType === Node.TEXT_NODE &&
-				typeof node.textContent?.length === 'number' &&
-				node.textContent.length > maxChunkLength
-			) {
+			if (node.nodeType === Node.TEXT_NODE && typeof node.textContent?.length === 'number' && node.textContent.length > maxChunkLength) {
 				const chunks = splitEvery(maxChunkLength, node.textContent);
 
 				if (Array.isArray(chunks)) {

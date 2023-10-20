@@ -56,16 +56,9 @@ Set control as child of other form group
 ```typescript
 @Component()
 export class ChildFormComponent {
-	constructor(
-		private controlContainer: ControlContainer,
-		private registerUserDetailsFormService: RegisterUserDetailsFormService
-	) {
+	constructor(private controlContainer: ControlContainer, private registerUserDetailsFormService: RegisterUserDetailsFormService) {
 		this.childForm = new FormGroup({});
-		FormConnector.connectControlWithParent(
-			controlContainer,
-			"childName",
-			this.childForm
-		);
+		FormConnector.connectControlWithParent(controlContainer, "childName", this.childForm);
 	}
 }
 ```
@@ -96,11 +89,7 @@ export class RestUserGetService extends RestQuery {
 	}
 
 	getUser$(userId: UserId): Observable<User> {
-		return this.query$(
-			this.httpClient.get<UserDto>(
-				`${environment.restUri}/user/${userId.id}`
-			)
-		).pipe(map((userDto) => User.fromDto(userDto)));
+		return this.query$(this.httpClient.get<UserDto>(`${environment.restUri}/user/${userId.id}`)).pipe(map((userDto) => User.fromDto(userDto)));
 	}
 }
 
@@ -111,11 +100,7 @@ export class RestUserGetService extends RestQuery {
 			{{ user.name }}
 		</ng-container>
 
-		<mat-progress-spinner
-			*ngIf="isProcessing$ | async"
-			mode="indeterminate"
-			color="primary"
-		></mat-progress-spinner>
+		<mat-progress-spinner *ngIf="isProcessing$ | async" mode="indeterminate" color="primary"></mat-progress-spinner>
 	`,
 	styleUrls: ["./user-page.component.scss"],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -123,9 +108,7 @@ export class RestUserGetService extends RestQuery {
 export class UserPageComponent {
 	user$: Observable<User>;
 
-	isProcessing$: Observable<boolean> = RestQuery.isProcessingAny$([
-		this.restUserGetService.isProcessing$(),
-	]);
+	isProcessing$: Observable<boolean> = RestQuery.isProcessingAny$([this.restUserGetService.isProcessing$()]);
 
 	constructor(private restUserGetService: RestUserGetService) {
 		this.user$ = this.restUserGetService.getUser$(

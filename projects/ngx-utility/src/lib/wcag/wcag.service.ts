@@ -14,11 +14,7 @@ export class Wcag implements OnDestroy {
 
 	#subscriptions = new Subscription();
 
-	constructor(
-		@Inject(DOCUMENT) private document: Document,
-		@Inject(WINDOW) private window: Window,
-		private focusMonitor: FocusMonitor,
-	) { }
+	constructor(@Inject(DOCUMENT) private document: Document, @Inject(WINDOW) private window: Window, private focusMonitor: FocusMonitor) {}
 
 	/**
 	 * Initialize module
@@ -61,8 +57,6 @@ export class Wcag implements OnDestroy {
 	 * if any element is focused.
 	 */
 	#trackFocus(): void {
-		this.#subscriptions.add(
-			this.focusMonitor.monitor(this.document.body, true).subscribe(),
-		);
+		this.#subscriptions.add(this.focusMonitor.monitor(this.document.body, true).subscribe());
 	}
 }
