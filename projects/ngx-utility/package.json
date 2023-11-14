@@ -1,6 +1,6 @@
 {
 	"name": "@opi_pib/ngx-utility",
-	"version": "16.0.3",
+	"version": "17.0.0",
 	"description": "Angular utility",
 	"keywords": [
 		"angular utility"
@@ -8,16 +8,16 @@
 	"author": "Dawid Lubowiecki",
 	"license": "MIT",
 	"peerDependencies": {
-		"@angular/cdk": "^16.0.0",
-		"@angular/common": "^16.0.0",
-		"@angular/core": "^16.0.0",
-		"@angular/forms": "^16.0.0",
-		"@angular/platform-browser": "^16.0.0",
-		"@angular/platform-browser-dynamic": "^16.0.0",
-		"@opi_pib/ts-utility": "1.1.12",
-		"ramda": "^0.29.0",
+		"@angular/cdk": "^17.0.0",
+		"@angular/common": "^17.0.0",
+		"@angular/core": "^17.0.0",
+		"@angular/forms": "^17.0.0",
+		"@angular/platform-browser": "^17.0.0",
+		"@angular/platform-browser-dynamic": "^17.0.0",
+		"@opi_pib/ts-utility": "1.1.13",
+		"ramda": "^0.29.1",
 		"rxjs": "~7.8.0",
-		"zone.js": "~0.13.0"
+		"zone.js": "~0.14.2"
 	},
 	"dependencies": {
 		"tslib": "^2.3.0"
