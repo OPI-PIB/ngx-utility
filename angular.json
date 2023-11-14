@@ -40,7 +40,6 @@
 			}
 		}
 	},
-	"defaultProject": "ngx-utility",
 	"cli": {
 		"analytics": false
 	}
