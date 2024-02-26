@@ -1,6 +1,6 @@
 {
 	"name": "@opi_pib/ngx-utility",
-	"version": "17.0.0",
+	"version": "17.0.1",
 	"description": "Angular utility",
 	"keywords": [
 		"angular utility"
@@ -14,10 +14,10 @@
 		"@angular/forms": "^17.0.0",
 		"@angular/platform-browser": "^17.0.0",
 		"@angular/platform-browser-dynamic": "^17.0.0",
-		"@opi_pib/ts-utility": "1.1.13",
+		"@opi_pib/ts-utility": "1.1.14",
 		"ramda": "^0.29.1",
 		"rxjs": "~7.8.0",
-		"zone.js": "~0.14.2"
+		"zone.js": "~0.14.3"
 	},
 	"dependencies": {
 		"tslib": "^2.3.0"
