@@ -28,13 +28,8 @@
 					"builder": "@angular-devkit/build-angular:karma",
 					"options": {
 						"tsConfig": "projects/ngx-utility/tsconfig.spec.json",
-						"polyfills": ["zone.js", "zone.js/testing"]
-					}
-				},
-				"eslint": {
-					"builder": "@angular-eslint/builder:lint",
-					"options": {
-						"lintFilePatterns": ["projects/ngx-utility/**/*.ts", "projects/ngx-utility/**/*.component.html"]
+						"polyfills": ["zone.js", "zone.js/testing"],
+						"watch": false
 					}
 				}
 			}

@@ -10,7 +10,7 @@ import { WcagColorScheme } from './wcag-color-scheme.enum';
 	providedIn: 'root',
 })
 export class Wcag implements OnDestroy {
-	#initialized: boolean = false;
+	#initialized = false;
 
 	#subscriptions = new Subscription();
 
