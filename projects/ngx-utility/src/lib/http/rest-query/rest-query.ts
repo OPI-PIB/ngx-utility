@@ -8,8 +8,6 @@ export abstract class RestQuery {
 		return combineLatest(sources$).pipe(map((states) => any((state) => state === true, states)));
 	}
 
-	constructor() {}
-
 	isProcessing$(): Observable<boolean> {
 		return this.#isProcessing$.asObservable();
 	}
