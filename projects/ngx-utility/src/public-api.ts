@@ -5,6 +5,7 @@
 // dom
 export * from './lib/dom/markup-renderer/markup-renderer.service';
 export * from './lib/dom/window/window';
+export * from './lib/dom/one-click.directive';
 
 // forms
 export * from './lib/forms/form-connector/form-connector';

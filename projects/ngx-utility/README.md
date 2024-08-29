@@ -47,6 +47,14 @@ export class MyService {
 }
 ```
 
+### SingleClickDirective
+
+Allows only one click on element
+
+```typescript
+<button singleClick (click)="action()">Clickable only once</button>
+```
+
 ## Forms
 
 ### FormConnector
