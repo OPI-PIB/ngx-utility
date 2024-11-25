@@ -22,7 +22,7 @@ export class SingleClickDirective {
 	}
 
 	disable(): void {
-		this.el.nativeElement.disable = true;
+		this.el.nativeElement.disabled = true;
 	}
 
 	get disabled(): boolean {
