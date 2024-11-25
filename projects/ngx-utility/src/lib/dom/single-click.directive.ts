@@ -9,15 +9,23 @@ export class SingleClickDirective {
 
 	@HostListener('click', ['$event'])
 	handleClick(event: Event) {
-		if (this.el.nativeElement.disabled) {
+		if (this.disabled) {
 			event.preventDefault();
 			event.stopImmediatePropagation();
 		} else {
-			this.el.nativeElement.disabled = true;
+			this.disable();
 		}
 	}
 
 	enable(): void {
 		this.el.nativeElement.disabled = false;
+	}
+
+	disable(): void {
+		this.el.nativeElement.disable = true;
+	}
+
+	get disabled(): boolean {
+		return this.el.nativeElement.disabled;
 	}
 }
