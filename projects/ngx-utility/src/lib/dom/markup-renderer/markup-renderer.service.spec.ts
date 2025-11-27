@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import { MarkupRenderer } from './markup-renderer.service';
 
@@ -28,7 +29,6 @@ describe('MarkupRenderer', () => {
 		service.renderMarkup({ markup, parent, maxChunkLength });
 
 		expect(parent.innerHTML).toBe(
-			// eslint-disable-next-line max-len
 			`<div class="aaa"><span>12</span><span>3</span><div class="bbb"><span>12</span><span>3</span></div></div><span>12</span><span>3</span>`
 		);
 	});
@@ -41,7 +41,6 @@ describe('MarkupRenderer', () => {
 		service.renderMarkup({ markup, parent, maxChunkLength });
 
 		expect(parent.innerHTML).toBe(
-			// eslint-disable-next-line max-len
 			`<span><span>1234</span><span>567</span></span><span>1234</span><span>567</span><span><span>1234</span><span>567</span></span><span>1234</span><span>567</span>`
 		);
 	});
@@ -63,6 +62,8 @@ describe('MarkupRenderer', () => {
 
 		service.renderMarkup({ markup, parent, maxChunkLength });
 
-		expect(parent.innerHTML).toBe(`12<u>12</u><span>12345</span><span>67</span><u><span>12345</span><span>67</span></u><span>12345</span><span>67</span>`);
+		expect(parent.innerHTML).toBe(
+			`12<u>12</u><span>12345</span><span>67</span><u><span>12345</span><span>67</span></u><span>12345</span><span>67</span>`
+		);
 	});
 });

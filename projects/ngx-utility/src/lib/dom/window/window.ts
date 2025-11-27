@@ -11,5 +11,5 @@ export const WINDOW = new InjectionToken<Window>('An abstraction over global win
 		}
 
 		return defaultView;
-	},
+	}
 });
